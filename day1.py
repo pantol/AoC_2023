@@ -16,7 +16,7 @@ def get_all_numbers_from_line(line):
 
 
 def get_first_and_last_digit(numbers_array):
-    return numbers_array[0] + numbers_array[len(numbers_array) - 1]
+    return numbers_array[0] + numbers_array[-1]
 
 
 def sum_of_every_number(numbers_array):
@@ -33,7 +33,7 @@ def get_result_of_challange():
         lines = map(remove_eol, readlines_result)
         result_numbers = []
 
-        for index, line in enumerate(lines):
+        for line in lines:
             all_number_in_line = get_all_numbers_from_line(line)
             result_numbers.append(get_first_and_last_digit(all_number_in_line))
 
