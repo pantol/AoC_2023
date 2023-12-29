@@ -5,14 +5,48 @@ def remove_eol(line):
         return line
 
 
-def get_all_numbers_from_line(line):
-    result = []
+def get_number(line):
+    result = {}
 
-    for character in line:
+    first_number = {
+        "index": None,
+        "value": None
+    }
+
+    last_number = {
+        "index": None,
+        "value": None
+    }
+
+    literal_digits = ["one", "two", "three", "four",
+                      "five", "six", "seven", "eight", "nine"]
+
+    print(line)
+    for digit_index, digit in enumerate(literal_digits):
+        print(digit)
+        print(line.count(digit))
+        # TODO: bład jest taki, że w tej pętli zawsze i tak pobierane jest pierwsze wystąpienie danego słowa
+        for count in range(line.count(digit)):
+            index = line.find(digit)
+            print(index)
+            if index != -1:
+                if first_number["index"] is None or first_number["index"] >= index:
+                    first_number["index"] = index
+                    first_number["value"] = str(digit_index+1)
+                if last_number["index"] is None or last_number["index"] <= index:
+                    last_number["index"] = index
+                    last_number["value"] = str(digit_index+1)
+
+    for index, character in enumerate(line):
         if character.isnumeric():
-            result.append(character)
+            if first_number["index"] is None or first_number["index"] >= index:
+                first_number["index"] = index
+                first_number["value"] = character
+            if last_number["index"] is None or last_number["index"] <= index:
+                last_number["index"] = index
+                last_number["value"] = character
 
-    return result
+    return first_number["value"] + last_number["value"]
 
 
 def get_first_and_last_digit(numbers_array):
@@ -34,8 +68,9 @@ def get_result_of_challange():
         result_numbers = []
 
         for line in lines:
-            all_number_in_line = get_all_numbers_from_line(line)
-            result_numbers.append(get_first_and_last_digit(all_number_in_line))
+            result_numbers.append(get_number(line))
+
+        print(result_numbers)
 
         return sum_of_every_number(result_numbers)
 
