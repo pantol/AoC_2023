@@ -17,7 +17,6 @@ def prepare_line(line: str) -> PreparedLine:
     splitted_line = line.split(': ')
     card_number = splitted_line[0].split(
         ' ')[len(splitted_line[0].split(' ')) - 1]
-    # print(f'"{card_number}"')
     numbers = splitted_line[1].split(' | ')
     mapped_winning_numbers = map(convert_list_to_int, filter(
         lambda x: x != '', numbers[0].split(' ')))
